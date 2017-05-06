@@ -126,7 +126,7 @@ def main():
     glfw.set_cursor_pos(window, 1024/2, 768/2)
 
     # Set opengl clear color to something other than red (color used by the fragment shader)
-    glClearColor(0.0,0.0,0.4,0.0)
+    glClearColor(0.0,0.0,0.0,0.0)
     
     # Enable depth test
     glEnable(GL_DEPTH_TEST)
@@ -143,55 +143,61 @@ def main():
     # Get a handle for our "MVP" uniform
     matrix_id = glGetUniformLocation(program_id, "MVP");
 
-    texture = load_image(".\\content\\uvtemplate.bmp")
+    texture = load_image(".\\content\\skinhp.bmp")
     texture_id  = glGetUniformLocation(program_id, "myTextureSampler")
 
     # Our vertices. Tree consecutive floats give a 3D vertex; Three consecutive vertices give a triangle.
     # A cube has 6 faces with 2 triangles each, so this makes 6*2=12 triangles, and 12*3 vertices
-    koordinat = 0.5
-    koordinat2 = 1
-    koordinat3 = 1
-    koordinat4 = 1
-    koordinat5 = 1
-    koordinat6 = 1
+   
 
     vertex_data = [ 
-        -koordinat2,-koordinat3,-koordinat,
-        -koordinat2,-koordinat3, koordinat6,
-        -koordinat2, koordinat5, koordinat6,
-         koordinat4, koordinat5,-koordinat,
-        -koordinat2,-koordinat3,-koordinat,
-        -koordinat2, koordinat5,-koordinat,
-         koordinat4,-koordinat3, koordinat6,
-        -koordinat2,-koordinat3,-koordinat,
-         koordinat4,-koordinat3,-koordinat,
-         koordinat4, koordinat5,-koordinat,
-         koordinat4,-koordinat3,-koordinat,
-        -koordinat2,-koordinat3,-koordinat,
-        -koordinat2,-koordinat3,-koordinat,
-        -koordinat2, koordinat5, koordinat6,
-        -koordinat2, koordinat5,-koordinat,
-         koordinat4,-koordinat3, koordinat6,
-        -koordinat2,-koordinat3, koordinat6,
-        -koordinat2,-koordinat3,-koordinat,
-        -koordinat2, koordinat5, koordinat6,
-        -koordinat2,-koordinat3, koordinat6,
-         koordinat4,-koordinat3, koordinat6,
-         koordinat4, koordinat5, koordinat6,
-         koordinat4,-koordinat3,-koordinat,
-         koordinat4, koordinat5,-koordinat,
-         koordinat4,-koordinat3,-koordinat,
-         koordinat4, koordinat5, koordinat6,
-         koordinat4,-koordinat3, koordinat6,
-         koordinat4, koordinat5, koordinat6,
-         koordinat4, koordinat5,-koordinat,
-        -koordinat2, koordinat5,-koordinat,
-         koordinat4, koordinat5, koordinat6,
-        -koordinat2, koordinat5,-koordinat,
-        -koordinat2, koordinat5, koordinat6,
-         koordinat4, koordinat5, koordinat6,
-        -koordinat2, koordinat5, koordinat6,
-         koordinat4,-koordinat3, koordinat6]
+        -1,-1,-0.2,
+        -1,-1, 0.7,
+        -1, 13.4, 0.7,
+
+         6.5, 13.4,-0.2,
+        -1,-1,-0.2,
+        -1, 13.4,-0.2,
+         
+         6.5,-1, 0.7,
+        -1,-1,-0.2,
+         6.5,-1,-0.2,
+         
+         6.5, 13.4,-0.2,
+         6.5,-1,-0.2,
+        -1,-1,-0.2,
+        
+        -1,-1,-0.2,
+        -1, 13.4, 0.7,
+        -1, 13.4,-0.2,
+        
+         6.5,-1, 0.7,
+        -1,-1, 0.7,
+        -1,-1,-0.2,
+        
+        -1, 13.4, 0.7,
+        -1,-1, 0.7,
+         6.5,-1, 0.7,
+        
+         6.5, 13.4, 0.7,
+         6.5,-1,-0.2,
+         6.5, 13.4,-0.2,
+        
+         6.5,-1,-0.2,
+         6.5, 13.4, 0.7,
+         6.5,-1, 0.7,
+        
+         6.5, 13.4, 0.7,
+         6.5, 13.4,-0.2,
+        -1, 13.4,-0.2,
+        
+         6.5, 13.4, 0.7,
+        -1, 13.4,-0.2,
+        -1, 13.4, 0.7,
+        
+         6.5, 13.4, 0.7,
+        -1, 13.4, 0.7,
+         6.5,-1, 0.7]
 
     # Two UV coordinatesfor each vertex. They were created withe Blender.
     uv_data = [ 

@@ -130,7 +130,7 @@ def load_image(file_name):
     #glTexSubImage2D(GL_TEXTURE_2D,0,0,0,width,height,GL_RGBA,GL_UNSIGNED_BYTE,image)
 
     # "Bind" the newly created texture : all future texture functions will modify this texture
-    bind_texture(texture_id,'MIN_FILTER')
+    bind_texture(texture_id, 'MIN_FILTER')
     glTexImage2D(
            GL_TEXTURE_2D, 0, 3, width, height, 0,
            GL_RGBA, GL_UNSIGNED_BYTE, image
@@ -165,10 +165,13 @@ def main():
     # Get a handle for our "MVP" uniform
     matrix_id = glGetUniformLocation(program_id, "MVP");
 
-    texture = load_image(".\\content\\uvmap.bmp")
-    texture2 = load_image(".\\content\\uvtemplate.bmp")
-    texture_id  = glGetUniformLocation(program_id, "myTextureSampler")
-    texture_id2 = glGetUniformLocation(program_id, "myTextureSampler2")
+    texture = []
+    texture_id = []
+
+    texture.append(load_image(".\\content\\uvmap.bmp"))
+    texture_id.append(glGetUniformLocation(program_id, "myTextureSampler"))
+    texture.append(load_image(".\\content\\uvtemplate.bmp"))
+    texture_id.append(glGetUniformLocation(program_id, "myTextureSampler2"))
 
     # Our vertices. Tree consecutive floats give a 3D vertex; Three consecutive vertices give a triangle.
     # A cube has 6 faces with 2 triangles each, so this makes 6*2=12 triangles, and 12*3 vertices
@@ -287,15 +290,17 @@ def main():
         ModelMatrix = mat4.identity();
         mvp = ProjectionMatrix * ViewMatrix * ModelMatrix;
 
+        ##################################################################### SET TEXTURE
+
         # Send our transformation to the currently bound shader,
         # in the "MVP" uniform
         glUniformMatrix4fv(matrix_id, 1, GL_FALSE,mvp.data)
 
         # Bind our texture in Texture Unit 0
-        glActiveTexture(GL_TEXTURE1);
-        glBindTexture(GL_TEXTURE_2D, texture2);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, texture[0]);
         # Set our "myTextureSampler" sampler to user Texture Unit 0
-        glUniform1i(texture_id2, 0);
+        glUniform1i(texture_id[0], 0);
 
         #1rst attribute buffer : vertices
         glEnableVertexAttribArray(0)
@@ -322,7 +327,56 @@ def main():
             )
 
         # Draw the triangle !
-        glDrawArrays(GL_TRIANGLES, 0, 12*3*jumlah_tempat) #3 indices starting at 0 -> 1 triangle
+        glDrawArrays(GL_TRIANGLES, 0, 12*3*4) #3 indices starting at 0 -> 1 triangle
+
+
+
+
+        # Poll for and process events
+        glfw.poll_events()
+
+        ####################################################################### SET TEXTURE 2
+        controls.computeMatricesFromInputs(window)
+        ProjectionMatrix = controls.getProjectionMatrix();
+        ViewMatrix = controls.getViewMatrix();
+        ModelMatrix = mat4.identity();
+        mvp = ProjectionMatrix * ViewMatrix * ModelMatrix;
+        # Send our transformation to the currently bound shader,
+        # in the "MVP" uniform
+        glUniformMatrix4fv(matrix_id, 1, GL_FALSE, mvp.data)
+
+        # Bind our texture in Texture Unit 0
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, texture[1]);
+        # Set our "myTextureSampler" sampler to user Texture Unit 0
+        glUniform1i(texture_id[1], 1);
+
+        # #1rst attribute buffer : vertices
+        # glEnableVertexAttribArray(0)
+        # glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer);
+        # glVertexAttribPointer(
+        #     0,                  # attribute 0. No particular reason for 0, but must match the layout in the shader.
+        #     3,                  # len(vertex_data)
+        #     GL_FLOAT,           # type
+        #     GL_FALSE,           # ormalized?
+        #     0,                  # stride
+        #     null                # array buffer offset (c_type == void*)
+        #     )
+        #
+        # # 2nd attribute buffer : colors
+        # glEnableVertexAttribArray(1)
+        # glBindBuffer(GL_ARRAY_BUFFER, uv_buffer);
+        # glVertexAttribPointer(
+        #     1,                  # attribute 1. No particular reason for 1, but must match the layout in the shader.
+        #     2,                  # len(vertex_data)
+        #     GL_FLOAT,           # type
+        #     GL_FALSE,           # ormalized?
+        #     0,                  # stride
+        #     null                # array buffer offset (c_type == void*)
+        #     )
+
+        # Draw the triangle !
+        glDrawArrays(GL_TRIANGLES, 12*3*4, 12*3*4) #3 indices starting at 0 -> 1 triangle
 
         # Not strictly necessary because we only have
         glDisableVertexAttribArray(0)

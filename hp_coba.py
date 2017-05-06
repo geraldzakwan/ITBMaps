@@ -226,6 +226,7 @@ def main():
 
         # Send our transformation to the currently bound shader,
         # in the "MVP" uniform
+        # draws Aula barat, timur ; CC barat, timur
 
         glBindTexture(GL_TEXTURE_2D, tex1);
         glUniformMatrix4fv(matrix_id, 1, GL_FALSE,mvp.data)
@@ -235,11 +236,13 @@ def main():
 
 
         ####################################################################### SET TEXTURE 2
+        #draws 4 labtek kembar + perpus, pau
+        
         glBindTexture(GL_TEXTURE_2D, tex2);
         glUniformMatrix4fv(matrix_id, 1, GL_FALSE, mvp.data)
 
         # Draw the shapes
-        glDrawArrays(GL_TRIANGLES, 12*3*4, 12*3*4) #3 indices starting at 0 -> 1 triangle
+        glDrawArrays(GL_TRIANGLES, 12*3*4, 12*3*6) #3 indices starting at 0 -> 1 triangle
 
 
 

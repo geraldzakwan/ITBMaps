@@ -24,6 +24,9 @@ import controls
 # Global window
 window = None
 null = c_void_p(0)
+list_of_gedung = []
+
+def load_
 
 def opengl_init():
     global window

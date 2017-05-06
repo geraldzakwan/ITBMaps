@@ -1,2 +1,0 @@
-# ITBMaps
-UAS Grafika Asu

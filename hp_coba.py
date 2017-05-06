@@ -25,9 +25,18 @@ import controls
 # Global window
 window = None
 null = c_void_p(0)
-list_of_gedung = []
+w, h = 4, 100
+list_of_gedung = [[0 for x in range(w)] for y in range(h)]
+jumlah_tempat = 0
 
-def load_
+def load_gedung(filename):
+    x = 0
+    with open(filename) as file:
+        for line in file:
+            titik = [int(n) for n in line.strip().split(',')]
+            list_of_gedung[x//4][x%4] = titik
+            x = x + 1
+    jumlah_tempat = x
 
 def opengl_init():
     global window

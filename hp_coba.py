@@ -36,7 +36,15 @@ def load_gedung(filename):
             titik = [int(n) for n in line.strip().split(',')]
             list_of_gedung[x//4][x%4] = titik
             x = x + 1
-    jumlah_tempat = x
+
+    jumlah_tempat = x // 4
+
+    for i in range(0,  jumlah_tempat):
+        for j in range(0, 4):
+            for k in range(0, 3):
+                print( str(i) +" " +str(j)+ " " +str(k)+ " " + str(type(list_of_gedung[i][j][k])))
+                list_of_gedung[i][j][k] = float(list_of_gedung[i][j][k]) / 50.0
+
 
 def opengl_init():
     global window
@@ -134,6 +142,8 @@ def main():
     if not opengl_init():
         return
 
+    load_gedung("itb_coordinate.txt")
+
     # Enable key events
     glfw.set_input_mode(window,glfw.STICKY_KEYS,GL_TRUE)
     glfw.set_cursor_pos(window, 1024/2, 768/2)
@@ -212,15 +222,21 @@ def main():
     #     -1, 13.4, 0.7,
     #      6.5,-1, 0.7]
 
-    vertex_data = createBuilding(270.0/50.0, 549.0/50.0, 0,
-                                230.0/50.0, 549.0/50.0, 0,
-                                230.0/50.0, 583.0/50.0, 0,
-                                270.0/50.0, 583.0/50.0, 0)
+    # vertex_data = createBuilding(270.0/50.0, 549.0/50.0, 0,
+    #                             230.0/50.0, 549.0/50.0, 0,
+    #                             230.0/50.0, 583.0/50.0, 0,
+    #                             270.0/50.0, 583.0/50.0, 0)
 
-    vertex_data2 = createBuilding(410, 545, 0,
-                                364, 545, 0,
-                                364, 582, 0,
-                                410, 582, 0)
+    vertex_data = createBuilding(list_of_gedung[0][0][0], list_of_gedung[0][0][1], 0,
+                                list_of_gedung[0][1][0], list_of_gedung[0][1][1], 0,
+                                list_of_gedung[0][2][0], list_of_gedung[0][2][1], 0,
+                                list_of_gedung[0][3][0], list_of_gedung[0][3][1], 0)
+
+    vertex_data = vertex_data + createBuilding(list_of_gedung[1][0][0], list_of_gedung[1][0][1], 0,
+                                list_of_gedung[1][1][0], list_of_gedung[1][1][1], 0,
+                                list_of_gedung[1][2][0], list_of_gedung[1][2][1], 0,
+                                list_of_gedung[1][3][0], list_of_gedung[1][3][1], 0)
+
     # vertex_data = createBuilding(1, 1, 0,
     #                             0, 1, 0,
     #                             0, 0, 0,

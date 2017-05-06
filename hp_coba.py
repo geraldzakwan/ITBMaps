@@ -79,10 +79,10 @@ def opengl_init():
 def createAllBuilding():
     vertex_data = []
     for i in range(0, jumlah_tempat):
-        vertex_data += createBuilding(list_of_gedung[i][0][0], list_of_gedung[i][0][1], 0,
-                                    list_of_gedung[i][1][0], list_of_gedung[i][1][1], 0,
+        vertex_data += createBuilding(list_of_gedung[i][3][0], list_of_gedung[i][3][1], 0,
                                     list_of_gedung[i][2][0], list_of_gedung[i][2][1], 0,
-                                    list_of_gedung[i][3][0], list_of_gedung[i][3][1], 0)
+                                    list_of_gedung[i][1][0], list_of_gedung[i][1][1], 0,
+                                    list_of_gedung[i][0][0], list_of_gedung[i][0][1], 0)
     return vertex_data
 def createUVData():
     uv_data = []

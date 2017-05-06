@@ -144,7 +144,7 @@ def main():
     # Get a handle for our "MVP" uniform
     matrix_id = glGetUniformLocation(program_id, "MVP");
 
-    texture = load_image(".\\content\\skinhp.bmp")
+    texture = load_image(".\\content\\uvmap.bmp")
     texture_id  = glGetUniformLocation(program_id, "myTextureSampler")
 
     # Our vertices. Tree consecutive floats give a 3D vertex; Three consecutive vertices give a triangle.
@@ -200,7 +200,19 @@ def main():
     #     -1, 13.4, 0.7,
     #      6.5,-1, 0.7]
 
-    vertex_data = createBuilding()
+    vertex_data = createBuilding(270.0/50.0, 549.0/50.0, 0,
+                                230.0/50.0, 549.0/50.0, 0,
+                                230.0/50.0, 583.0/50.0, 0,
+                                270.0/50.0, 583.0/50.0, 0)
+
+    vertex_data2 = createBuilding(410, 545, 0,
+                                364, 545, 0,
+                                364, 582, 0,
+                                410, 582, 0)
+    # vertex_data = createBuilding(1, 1, 0,
+    #                             0, 1, 0,
+    #                             0, 0, 0,
+    #                             1, 0, 0)
 
     # Two UV coordinatesfor each vertex. They were created withe Blender.
     uv_data = [

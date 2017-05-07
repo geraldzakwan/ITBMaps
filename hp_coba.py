@@ -114,15 +114,14 @@ def bind_texture(texture_id,mode):
     # Generate mipmaps?  Doesn't seem to work
     glGenerateMipmap(GL_TEXTURE_2D)
 
-def load_image(file_name):
+def load_image(file_name,texture_id):
     im = pil_open(file_name)
     try:
         width,height,image = im.size[0], im.size[1], im.tobytes("raw", "RGBX", 0, -1)
     except SystemError:
         width,height,image = im.size[0], im.size[1], im.tobytes("raw", "RGBX", 0, -1)
 
-    texture_id =  glGenTextures(1)
-
+    
     # To use OpenGL 4.2 ARB_texture_storage to automatically generate a single mipmap layer
     # uncomment the 3 lines below.  Note that this should replaced glTexImage2D below.
     #bind_texture(texture_id,'DEFAULT')
@@ -142,7 +141,7 @@ def main():
         return
 
     load_gedung("itb_coordinate.txt")
-
+    
     # Enable key events
     glfw.set_input_mode(window,glfw.STICKY_KEYS,GL_TRUE)
     glfw.set_cursor_pos(window, 1024/2, 768/2)
@@ -165,11 +164,11 @@ def main():
     # Get a handle for our "MVP" uniform
     matrix_id = glGetUniformLocation(program_id, "MVP");
 
-    texture = load_image(".\\content\\uvmap.bmp")
-    texture2 = load_image(".\\content\\uvtemplate.bmp")
-    texture_id  = glGetUniformLocation(program_id, "myTextureSampler")
-    texture_id2 = glGetUniformLocation(program_id, "myTextureSampler2")
-
+    texture = ["",""]
+    glGenTextures(2, texture)
+    texture = load_image(".\\content\\uvmap.bmp",texture[0])
+    texture2 = load_image(".\\content\\uvtemplate.bmp",texture[1])
+    
     # Our vertices. Tree consecutive floats give a 3D vertex; Three consecutive vertices give a triangle.
     # A cube has 6 faces with 2 triangles each, so this makes 6*2=12 triangles, and 12*3 vertices
 
@@ -292,10 +291,9 @@ def main():
         glUniformMatrix4fv(matrix_id, 1, GL_FALSE,mvp.data)
 
         # Bind our texture in Texture Unit 0
-        glActiveTexture(GL_TEXTURE1);
-        glBindTexture(GL_TEXTURE_2D, texture2);
         # Set our "myTextureSampler" sampler to user Texture Unit 0
-        glUniform1i(texture_id2, 0);
+        texture_id = glGetUniformLocation(program_id, "myTextureSampler")
+        glUniform1i(texture_id, 0);
 
         #1rst attribute buffer : vertices
         glEnableVertexAttribArray(0)
@@ -322,7 +320,37 @@ def main():
             )
 
         # Draw the triangle !
-        glDrawArrays(GL_TRIANGLES, 0, 12*3*jumlah_tempat) #3 indices starting at 0 -> 1 triangle
+        glDrawArrays(GL_TRIANGLES, 0, 12*3*4) #3 indices starting at 0 -> 1 triangle
+
+        texture_id = glGetUniformLocation(program_id, "myTextureSampler2")
+        glUniform1i(texture_id, 1);
+
+        #1rst attribute buffer : vertices
+        glEnableVertexAttribArray(0)
+        glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer);
+        glVertexAttribPointer(
+            0,                  # attribute 0. No particular reason for 0, but must match the layout in the shader.
+            3,                  # len(vertex_data)
+            GL_FLOAT,           # type
+            GL_FALSE,           # ormalized?
+            0,                  # stride
+            null                # array buffer offset (c_type == void*)
+            )
+
+        # 2nd attribute buffer : colors
+        glEnableVertexAttribArray(1)
+        glBindBuffer(GL_ARRAY_BUFFER, uv_buffer);
+        glVertexAttribPointer(
+            1,                  # attribute 1. No particular reason for 1, but must match the layout in the shader.
+            2,                  # len(vertex_data)
+            GL_FLOAT,           # type
+            GL_FALSE,           # ormalized?
+            0,                  # stride
+            null                # array buffer offset (c_type == void*)
+            )
+
+        # Draw the triangle !
+        glDrawArrays(GL_TRIANGLES, 12*3*4, 12*3*4) #3 indices starting at 0 -> 1 triangle
 
         # Not strictly necessary because we only have
         glDisableVertexAttribArray(0)

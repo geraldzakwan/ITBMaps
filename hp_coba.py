@@ -208,8 +208,8 @@ def main():
     glActiveTexture(GL_TEXTURE0);
 
     currentTexture = []
-    for i in range(1, 3):
-        currentTexture.append(TextureLoader.load_texture("img/eksperimen.jpg"))
+    for i in range(1, jumlah_tempat+1):
+        currentTexture.append(TextureLoader.load_texture("img/building"+str(i)+".jpg"))
 
     while glfw.get_key(window,glfw.KEY_ESCAPE) != glfw.PRESS and not glfw.window_should_close(window):
         # Clear old render result
@@ -249,7 +249,7 @@ def main():
             # in the "MVP" uniform
             # draws Aula barat, timur ; CC barat, timur
 
-            glBindTexture(GL_TEXTURE_2D, currentTexture[0]);
+            glBindTexture(GL_TEXTURE_2D, currentTexture[i]);
             glUniformMatrix4fv(matrix_id, 1, GL_FALSE,mvp.data)
 
             # # Draw the shapes

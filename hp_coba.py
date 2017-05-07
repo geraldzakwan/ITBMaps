@@ -214,7 +214,7 @@ def main():
 
     currentTexture = []
     for i in range(1, 3):
-        currentTexture.append(TextureLoader.load_texture("img/bangunan-" + str(i) + ".jpg"))
+        currentTexture.append(TextureLoader.load_texture("img/eksperimen.jpg"))
 
     while glfw.get_key(window,glfw.KEY_ESCAPE) != glfw.PRESS and not glfw.window_should_close(window):
         # Clear old render result
@@ -247,13 +247,14 @@ def main():
 
         # # Draw the shapes
         # glDrawArrays(GL_TRIANGLES, 12*3*4, 12*3*6) #3 indices starting at 0 -> 1 triangle
+        print (jumlah_tempat)
 
-        for i in range(0, 2):            
+        for i in range(0, jumlah_tempat):            
             # Send our transformation to the currently bound shader,
             # in the "MVP" uniform
             # draws Aula barat, timur ; CC barat, timur
 
-            glBindTexture(GL_TEXTURE_2D, currentTexture[i]);
+            glBindTexture(GL_TEXTURE_2D, currentTexture[0]);
             glUniformMatrix4fv(matrix_id, 1, GL_FALSE,mvp.data)
 
             # # Draw the shapes

@@ -228,22 +228,33 @@ def main():
         # in the "MVP" uniform
         # draws Aula barat, timur ; CC barat, timur
 
-        glBindTexture(GL_TEXTURE_2D, tex1);
-        glUniformMatrix4fv(matrix_id, 1, GL_FALSE,mvp.data)
+        # glBindTexture(GL_TEXTURE_2D, tex1);
+        # glUniformMatrix4fv(matrix_id, 1, GL_FALSE,mvp.data)
 
-        # Draw the shapes
-        glDrawArrays(GL_TRIANGLES, 0, 12*3*4) #3 indices starting at 0 -> 1 triangle
+        # # Draw the shapes
+        # glDrawArrays(GL_TRIANGLES, 0, 12*3*4) #3 indices starting at 0 -> 1 triangle
 
 
-        ####################################################################### SET TEXTURE 2
-        #draws 4 labtek kembar + perpus, pau
+        # ####################################################################### SET TEXTURE 2
+        # #draws 4 labtek kembar + perpus, pau
 
-        glBindTexture(GL_TEXTURE_2D, tex2);
-        glUniformMatrix4fv(matrix_id, 1, GL_FALSE, mvp.data)
+        # glBindTexture(GL_TEXTURE_2D, tex2);
+        # glUniformMatrix4fv(matrix_id, 1, GL_FALSE, mvp.data)
 
-        # Draw the shapes
-        glDrawArrays(GL_TRIANGLES, 12*3*4, 12*3*6) #3 indices starting at 0 -> 1 triangle
+        # # Draw the shapes
+        # glDrawArrays(GL_TRIANGLES, 12*3*4, 12*3*6) #3 indices starting at 0 -> 1 triangle
 
+        for i in range(1, 3):
+            currentTexture = TextureLoader.load_texture("img/bangunan-" + str(i) + ".jpg")
+            # Send our transformation to the currently bound shader,
+            # in the "MVP" uniform
+            # draws Aula barat, timur ; CC barat, timur
+
+            glBindTexture(GL_TEXTURE_2D, currentTexture);
+            glUniformMatrix4fv(matrix_id, 1, GL_FALSE,mvp.data)
+
+            # # Draw the shapes
+            glDrawArrays(GL_TRIANGLES, 0, 12*3) #3 indices starting at 0 -> 1 triangle            
 
         ################################################### FINALIZE
 

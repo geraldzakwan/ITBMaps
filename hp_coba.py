@@ -212,6 +212,10 @@ def main():
 
     glActiveTexture(GL_TEXTURE0);
 
+    currentTexture = []
+    for i in range(1, 3):
+        currentTexture.append(TextureLoader.load_texture("img/bangunan-" + str(i) + ".jpg"))
+
     while glfw.get_key(window,glfw.KEY_ESCAPE) != glfw.PRESS and not glfw.window_should_close(window):
         # Clear old render result
         glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT)
@@ -244,17 +248,16 @@ def main():
         # # Draw the shapes
         # glDrawArrays(GL_TRIANGLES, 12*3*4, 12*3*6) #3 indices starting at 0 -> 1 triangle
 
-        for i in range(1, 3):
-            currentTexture = TextureLoader.load_texture("img/bangunan-" + str(i) + ".jpg")
+        for i in range(0, 2):            
             # Send our transformation to the currently bound shader,
             # in the "MVP" uniform
             # draws Aula barat, timur ; CC barat, timur
 
-            glBindTexture(GL_TEXTURE_2D, currentTexture);
+            glBindTexture(GL_TEXTURE_2D, currentTexture[i]);
             glUniformMatrix4fv(matrix_id, 1, GL_FALSE,mvp.data)
 
             # # Draw the shapes
-            glDrawArrays(GL_TRIANGLES, 0, 12*3) #3 indices starting at 0 -> 1 triangle            
+            glDrawArrays(GL_TRIANGLES, 12*3*i, 12*3) #3 indices starting at 0 -> 1 triangle            
 
         ################################################### FINALIZE
 

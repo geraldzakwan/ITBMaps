@@ -76,7 +76,107 @@ def opengl_init():
         return False
     return True
 
+<<<<<<< HEAD
+def bind_texture(texture_id,mode):
+    """ Bind texture_id using several different modes
+
+        Notes:
+            Without mipmapping the texture is incomplete
+            and requires additional constraints on OpenGL
+            to properly render said texture.
+
+            Use 'MIN_FILTER" or 'MAX_LEVEL' to render
+            a generic texture with a single resolution
+        Ref:
+            [] - http://www.opengl.org/wiki/Common_Mistakes#Creating_a_complete_texture
+            [] - http://gregs-blog.com/2008/01/17/opengl-texture-filter-parameters-explained/
+        TODO:
+            - Rename modes to something useful
+    """
+    if mode == 'DEFAULT':
+        glBindTexture(GL_TEXTURE_2D, texture_id)
+        glPixelStorei(GL_UNPACK_ALIGNMENT,1)
+    elif mode == 'MIN_FILTER':
+        glBindTexture(GL_TEXTURE_2D, texture_id)
+        glPixelStorei(GL_UNPACK_ALIGNMENT,1)
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP)
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP)
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR)
+    elif mode == 'MAX_LEVEL':
+        glBindTexture(GL_TEXTURE_2D, texture_id)
+        glPixelStorei(GL_UNPACK_ALIGNMENT,1)
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_BASE_LEVEL, 0)
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0)
+    else:
+        glBindTexture(GL_TEXTURE_2D, texture_id)
+        glPixelStorei(GL_UNPACK_ALIGNMENT,1)
+
+    # Generate mipmaps?  Doesn't seem to work
+    glGenerateMipmap(GL_TEXTURE_2D)
+
+def load_image(file_name,texture_id):
+    im = pil_open(file_name)
+    try:
+        width,height,image = im.size[0], im.size[1], im.tobytes("raw", "RGBX", 0, -1)
+    except SystemError:
+        width,height,image = im.size[0], im.size[1], im.tobytes("raw", "RGBX", 0, -1)
+
+    
+    # To use OpenGL 4.2 ARB_texture_storage to automatically generate a single mipmap layer
+    # uncomment the 3 lines below.  Note that this should replaced glTexImage2D below.
+    #bind_texture(texture_id,'DEFAULT')
+    #glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA8, width, height);
+    #glTexSubImage2D(GL_TEXTURE_2D,0,0,0,width,height,GL_RGBA,GL_UNSIGNED_BYTE,image)
+
+    # "Bind" the newly created texture : all future texture functions will modify this texture
+    bind_texture(texture_id,'MIN_FILTER')
+    glTexImage2D(
+           GL_TEXTURE_2D, 0, 3, width, height, 0,
+           GL_RGBA, GL_UNSIGNED_BYTE, image
+       )
+    return texture_id
+
+def main():
+    if not opengl_init():
+        return
+
+    load_gedung("itb_coordinate.txt")
+    
+    # Enable key events
+    glfw.set_input_mode(window,glfw.STICKY_KEYS,GL_TRUE)
+    glfw.set_cursor_pos(window, 1024/2, 768/2)
+
+    # Set opengl clear color to something other than red (color used by the fragment shader)
+    glClearColor(0.0,0.0,0.0,0.0)
+
+    # Enable depth test
+    glEnable(GL_DEPTH_TEST)
+    # Accept fragment if it closer to the camera than the former one
+    glDepthFunc(GL_LESS);
+    glEnable(GL_CULL_FACE)
+
+    vertex_array_id = glGenVertexArrays(1)
+    glBindVertexArray( vertex_array_id )
+
+    program_id = common.LoadShaders( ".\\shaders\\Tutorial6\\TransformVertexShader.vertexshader",
+        ".\\shaders\\Tutorial6\\TextureFragmentShader.fragmentshader" )
+
+    # Get a handle for our "MVP" uniform
+    matrix_id = glGetUniformLocation(program_id, "MVP");
+
+    texture = ["",""]
+    glGenTextures(2, texture)
+    texture = load_image(".\\content\\uvmap.bmp",texture[0])
+    texture2 = load_image(".\\content\\uvtemplate.bmp",texture[1])
+    
+    # Our vertices. Tree consecutive floats give a 3D vertex; Three consecutive vertices give a triangle.
+    # A cube has 6 faces with 2 triangles each, so this makes 6*2=12 triangles, and 12*3 vertices
+
+
+=======
 def createAllBuilding():
+>>>>>>> 37eed312f2d4475f907393d60a7c3b5d564a7be2
     vertex_data = []
     for i in range(0, jumlah_tempat):
         vertex_data += createBuilding(list_of_gedung[i][3][0], list_of_gedung[i][3][1], 0,
@@ -231,19 +331,88 @@ def main():
         glBindTexture(GL_TEXTURE_2D, tex1);
         glUniformMatrix4fv(matrix_id, 1, GL_FALSE,mvp.data)
 
+<<<<<<< HEAD
+        # Bind our texture in Texture Unit 0
+        # Set our "myTextureSampler" sampler to user Texture Unit 0
+        texture_id = glGetUniformLocation(program_id, "myTextureSampler")
+        glUniform1i(texture_id, 0);
+
+        #1rst attribute buffer : vertices
+        glEnableVertexAttribArray(0)
+        glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer);
+        glVertexAttribPointer(
+            0,                  # attribute 0. No particular reason for 0, but must match the layout in the shader.
+            3,                  # len(vertex_data)
+            GL_FLOAT,           # type
+            GL_FALSE,           # ormalized?
+            0,                  # stride
+            null                # array buffer offset (c_type == void*)
+            )
+
+        # 2nd attribute buffer : colors
+        glEnableVertexAttribArray(1)
+        glBindBuffer(GL_ARRAY_BUFFER, uv_buffer);
+        glVertexAttribPointer(
+            1,                  # attribute 1. No particular reason for 1, but must match the layout in the shader.
+            2,                  # len(vertex_data)
+            GL_FLOAT,           # type
+            GL_FALSE,           # ormalized?
+            0,                  # stride
+            null                # array buffer offset (c_type == void*)
+            )
+
+        # Draw the triangle !
+        glDrawArrays(GL_TRIANGLES, 0, 12*3*4) #3 indices starting at 0 -> 1 triangle
+
+        texture_id = glGetUniformLocation(program_id, "myTextureSampler2")
+        glUniform1i(texture_id, 1);
+
+        #1rst attribute buffer : vertices
+        glEnableVertexAttribArray(0)
+        glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer);
+        glVertexAttribPointer(
+            0,                  # attribute 0. No particular reason for 0, but must match the layout in the shader.
+            3,                  # len(vertex_data)
+            GL_FLOAT,           # type
+            GL_FALSE,           # ormalized?
+            0,                  # stride
+            null                # array buffer offset (c_type == void*)
+            )
+
+        # 2nd attribute buffer : colors
+        glEnableVertexAttribArray(1)
+        glBindBuffer(GL_ARRAY_BUFFER, uv_buffer);
+        glVertexAttribPointer(
+            1,                  # attribute 1. No particular reason for 1, but must match the layout in the shader.
+            2,                  # len(vertex_data)
+            GL_FLOAT,           # type
+            GL_FALSE,           # ormalized?
+            0,                  # stride
+            null                # array buffer offset (c_type == void*)
+            )
+
+        # Draw the triangle !
+        glDrawArrays(GL_TRIANGLES, 12*3*4, 12*3*4) #3 indices starting at 0 -> 1 triangle
+
+        # Not strictly necessary because we only have
+        glDisableVertexAttribArray(0)
+        glDisableVertexAttribArray(1)
+=======
         # Draw the shapes
         glDrawArrays(GL_TRIANGLES, 0, 12*3*4) #3 indices starting at 0 -> 1 triangle
 
 
         ####################################################################### SET TEXTURE 2
         #draws 4 labtek kembar + perpus, pau
-
+        
         glBindTexture(GL_TEXTURE_2D, tex2);
         glUniformMatrix4fv(matrix_id, 1, GL_FALSE, mvp.data)
 
         # Draw the shapes
         glDrawArrays(GL_TRIANGLES, 12*3*4, 12*3*6) #3 indices starting at 0 -> 1 triangle
 
+
+>>>>>>> 37eed312f2d4475f907393d60a7c3b5d564a7be2
 
         ################################################### FINALIZE
 

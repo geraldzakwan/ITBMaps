@@ -29,6 +29,88 @@ w, h = 4, 100
 list_of_gedung = [[0 for x in range(w)] for y in range(h)]
 jumlah_tempat = 0
 
+CUBE_DEG_PER_S = 30.0
+LIGHT_DEG_PER_S = 90.0
+CUBE_SIZE = 9.0
+flashLightPos = [ 0.0, 0.0, 0.0];
+flashLightDir = [ 0.0, 0.0, -1.0 ];
+flashLightColor = [ 0.2, 0.2, 0.2 ];
+
+redLightColor = [ 0.5, 0.1, 0.2 ];
+redLightPos = [ 10.0, 0.0, 5.0, 1.0 ];
+
+greenLightColor = [ 0.1, 0.6, 0.2 ];
+greenLightPos = [ 0.0, 0.0, 10.0, 1.0 ];
+m_pSphere = gluNewQuadric()
+m_cubeAngle = 0.0
+m_lightAngle = 0.0
+m_flashlightOn = True    
+
+def Display():
+    global m_cubeAngle, m_flashlightOn, m_lightAngle, m_pSphere, CUBE_SIZE
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+    
+    glLoadIdentity();
+    gluLookAt(0.0, 0.0, 20.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+    
+    if (m_flashlightOn):
+        glEnable(GL_LIGHT0);
+    else:
+        glDisable(GL_LIGHT0);
+    
+    # position the red light
+    glLightfv(GL_LIGHT1, GL_POSITION, redLightPos);
+    
+    # draw the red light
+    glPushMatrix();
+    glDisable(GL_LIGHTING);
+    glTranslatef(redLightPos[0], redLightPos[1], redLightPos[2]);
+    glColor3fv(redLightColor);
+    gluSphere(m_pSphere, 0.2, 10, 10);
+    glEnable(GL_LIGHTING);
+    glPopMatrix();
+    
+    # position and draw the green light
+    glPushMatrix();
+    glDisable(GL_LIGHTING);
+    glRotatef(m_lightAngle, 1.0, 0.0, 0.0);
+    glRotatef(m_lightAngle, 0.0, 1.0, 0.0);
+    glLightfv(GL_LIGHT2, GL_POSITION, greenLightPos);
+    glTranslatef(greenLightPos[0], greenLightPos[1], greenLightPos[2]);
+    glColor3fv(greenLightColor);
+    gluSphere(m_pSphere, 0.2, 10, 10);
+    glEnable(GL_LIGHTING);
+    glPopMatrix();
+    
+
+def OpenglInit():
+    global m_pSphere
+    glClearColor(0.0, 0.0, 0.0, 0.0);
+    glEnable(GL_DEPTH_TEST)
+    #glDepthFunc(GL_LEQUAL)              ### test
+    glEnable(GL_LIGHT0);
+    glLightfv(GL_LIGHT0, GL_POSITION, flashLightPos);
+    glLightfv(GL_LIGHT0, GL_AMBIENT, flashLightColor);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, flashLightColor);
+    glLightfv(GL_LIGHT0, GL_SPECULAR, flashLightColor);
+    glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, flashLightDir);
+    glLightf(GL_LIGHT0, GL_SPOT_CUTOFF, 12.0);
+    
+    # set up static red light
+    glEnable(GL_LIGHT1);
+    glLightfv(GL_LIGHT1, GL_AMBIENT, redLightColor);
+    glLightfv(GL_LIGHT1, GL_DIFFUSE, redLightColor);
+    glLightfv(GL_LIGHT1, GL_SPECULAR, redLightColor);
+    
+    # set up moving green light
+    glEnable(GL_LIGHT2);
+    glLightfv(GL_LIGHT2, GL_AMBIENT, greenLightColor);
+    glLightfv(GL_LIGHT2, GL_DIFFUSE, greenLightColor);
+    glLightfv(GL_LIGHT2, GL_SPECULAR, greenLightColor);
+    
+    # get a quadric object for the light sphere
+    m_pSphere = gluNewQuadric()    
+
 def load_gedung(filename):
     x = 0
     with open(filename) as file:
@@ -129,6 +211,8 @@ def main():
     if not opengl_init():
         return
 
+    OpenglInit()
+
     load_gedung("itb_coordinate.txt")
 
     # Enable key events
@@ -225,6 +309,8 @@ def main():
         ViewMatrix = controls.getViewMatrix();
         ModelMatrix = mat4.identity();
         mvp = ProjectionMatrix * ViewMatrix * ModelMatrix;
+
+        Display()
 
         ##################################################################### SET TEXTURE 1
 

@@ -14,7 +14,7 @@ from OpenGL.GL.shaders import *
 from glew_wish import *
 from csgl import *
 from PIL.Image import open as pil_open
-from createVertexBuilding import createBuilding
+from createVertexBuilding import createBuilding, createAllBuilding, list_of_gedung
 
 import common
 import glfw
@@ -25,8 +25,6 @@ import TextureLoader
 # Global window
 window = None
 null = c_void_p(0)
-w, h = 4, 100
-list_of_gedung = [[0 for x in range(w)] for y in range(h)]
 jumlah_tempat = 0
 
 CUBE_DEG_PER_S = 30.0
@@ -127,6 +125,11 @@ def load_gedung(filename):
                 # print( str(i) +" " +str(j)+ " " +str(k)+ " " + str(type(list_of_gedung[i][j][k])))
                 list_of_gedung[i][j][k] = float(list_of_gedung[i][j][k]) / 50.0
 
+    for i in range(0,  jumlah_tempat):
+        for j in range(0, 4):
+            list_of_gedung[i][j][0] = -1 * (list_of_gedung[i][j][0] - 318.0/50.0) + 318.0/50.0
+
+    print( list_of_gedung)
 def opengl_init():
     global window
     # Initialize the library
@@ -158,14 +161,6 @@ def opengl_init():
         return False
     return True
 
-def createAllBuilding():
-    vertex_data = []
-    for i in range(0, jumlah_tempat):
-        vertex_data += createBuilding(list_of_gedung[i][3][0], list_of_gedung[i][3][1], 0,
-                                    list_of_gedung[i][2][0], list_of_gedung[i][2][1], 0,
-                                    list_of_gedung[i][1][0], list_of_gedung[i][1][1], 0,
-                                    list_of_gedung[i][0][0], list_of_gedung[i][0][1], 0)
-    return vertex_data
 def createUVData():
     uv_data = []
     for i in range(0,jumlah_tempat):
@@ -297,8 +292,8 @@ def main():
     glActiveTexture(GL_TEXTURE0);
 
     currentTexture = []
-    for i in range(1, 3):
-        currentTexture.append(TextureLoader.load_texture("img/bangunan-" + str(i) + ".jpg"))
+    for i in range(1, jumlah_tempat+1):
+        currentTexture.append(TextureLoader.load_texture("img/building"+str(i)+".jpg"))
 
     while glfw.get_key(window,glfw.KEY_ESCAPE) != glfw.PRESS and not glfw.window_should_close(window):
         # Clear old render result
@@ -333,8 +328,9 @@ def main():
 
         # # Draw the shapes
         # glDrawArrays(GL_TRIANGLES, 12*3*4, 12*3*6) #3 indices starting at 0 -> 1 triangle
+        # print (jumlah_tempat)
 
-        for i in range(0, 2):            
+        for i in range(0, jumlah_tempat):
             # Send our transformation to the currently bound shader,
             # in the "MVP" uniform
             # draws Aula barat, timur ; CC barat, timur
@@ -343,7 +339,7 @@ def main():
             glUniformMatrix4fv(matrix_id, 1, GL_FALSE,mvp.data)
 
             # # Draw the shapes
-            glDrawArrays(GL_TRIANGLES, 12*3*i, 12*3) #3 indices starting at 0 -> 1 triangle            
+            glDrawArrays(GL_TRIANGLES, 12*3*i, 12*3) #3 indices starting at 0 -> 1 triangle
 
         ################################################### FINALIZE
 

@@ -281,4 +281,146 @@ def createAllBuilding():
                                     list_of_gedung[i][3][0], list_of_gedung[i][3][1], list_of_gedung[i][3][2], 0.7)
     i += 1
 
+# jalanan
+    vertex_data += createBuilding(list_of_gedung[i][0][0], list_of_gedung[i][0][1], list_of_gedung[i][0][2],
+                                    list_of_gedung[i][1][0], list_of_gedung[i][1][1], list_of_gedung[i][1][2],
+                                    list_of_gedung[i][2][0], list_of_gedung[i][2][1], list_of_gedung[i][2][2],
+                                    list_of_gedung[i][3][0], list_of_gedung[i][3][1], list_of_gedung[i][3][2], 0.2)
+
+    i += 1
+
+    vertex_data += createBuilding(list_of_gedung[i][0][0], list_of_gedung[i][0][1], list_of_gedung[i][0][2],
+                                    list_of_gedung[i][1][0], list_of_gedung[i][1][1], list_of_gedung[i][1][2],
+                                    list_of_gedung[i][2][0], list_of_gedung[i][2][1], list_of_gedung[i][2][2],
+                                    list_of_gedung[i][3][0], list_of_gedung[i][3][1], list_of_gedung[i][3][2], 0.2)
+
+    i += 1
+
+    vertex_data += createBuilding(list_of_gedung[i][0][0], list_of_gedung[i][0][1], list_of_gedung[i][0][2],
+                                    list_of_gedung[i][1][0], list_of_gedung[i][1][1], list_of_gedung[i][1][2],
+                                    list_of_gedung[i][2][0], list_of_gedung[i][2][1], list_of_gedung[i][2][2],
+                                    list_of_gedung[i][3][0], list_of_gedung[i][3][1], list_of_gedung[i][3][2], 0.2)
+
+    i += 1
+
+    vertex_data += createBuilding(list_of_gedung[i][0][0], list_of_gedung[i][0][1], list_of_gedung[i][0][2],
+                                    list_of_gedung[i][1][0], list_of_gedung[i][1][1], list_of_gedung[i][1][2],
+                                    list_of_gedung[i][2][0], list_of_gedung[i][2][1], list_of_gedung[i][2][2],
+                                    list_of_gedung[i][3][0], list_of_gedung[i][3][1], list_of_gedung[i][3][2], 0.2)
+    i += 1
+
+    vertex_data += createBuilding(list_of_gedung[i][0][0], list_of_gedung[i][0][1], list_of_gedung[i][0][2],
+                                    list_of_gedung[i][1][0], list_of_gedung[i][1][1], list_of_gedung[i][1][2],
+                                    list_of_gedung[i][2][0], list_of_gedung[i][2][1], list_of_gedung[i][2][2],
+                                    list_of_gedung[i][3][0], list_of_gedung[i][3][1], list_of_gedung[i][3][2], 0.2)
+
+    i += 1
+
+    vertex_data += createBuilding(list_of_gedung[i][0][0], list_of_gedung[i][0][1], list_of_gedung[i][0][2],
+                                    list_of_gedung[i][1][0], list_of_gedung[i][1][1], list_of_gedung[i][1][2],
+                                    list_of_gedung[i][2][0], list_of_gedung[i][2][1], list_of_gedung[i][2][2],
+                                    list_of_gedung[i][3][0], list_of_gedung[i][3][1], list_of_gedung[i][3][2], 0.2)
+    i += 1
+
+    vertex_data += createBuilding(list_of_gedung[i][0][0], list_of_gedung[i][0][1], list_of_gedung[i][0][2],
+                                    list_of_gedung[i][1][0], list_of_gedung[i][1][1], list_of_gedung[i][1][2],
+                                    list_of_gedung[i][2][0], list_of_gedung[i][2][1], list_of_gedung[i][2][2],
+                                    list_of_gedung[i][3][0], list_of_gedung[i][3][1], list_of_gedung[i][3][2], 0.2)
+
+    i += 1
+
+    vertex_data += createBuilding(list_of_gedung[i][0][0], list_of_gedung[i][0][1], list_of_gedung[i][0][2],
+                                    list_of_gedung[i][1][0], list_of_gedung[i][1][1], list_of_gedung[i][1][2],
+                                    list_of_gedung[i][2][0], list_of_gedung[i][2][1], list_of_gedung[i][2][2],
+                                    list_of_gedung[i][3][0], list_of_gedung[i][3][1], list_of_gedung[i][3][2], 0.2)
+    i += 1
+
+    vertex_data += createBuilding(list_of_gedung[i][0][0], list_of_gedung[i][0][1], list_of_gedung[i][0][2],
+                                    list_of_gedung[i][1][0], list_of_gedung[i][1][1], list_of_gedung[i][1][2],
+                                    list_of_gedung[i][2][0], list_of_gedung[i][2][1], list_of_gedung[i][2][2],
+                                    list_of_gedung[i][3][0], list_of_gedung[i][3][1], list_of_gedung[i][3][2], 0.2)
+
+    i += 1
+
+    vertex_data += createBuilding(list_of_gedung[i][0][0], list_of_gedung[i][0][1], list_of_gedung[i][0][2],
+                                    list_of_gedung[i][1][0], list_of_gedung[i][1][1], list_of_gedung[i][1][2],
+                                    list_of_gedung[i][2][0], list_of_gedung[i][2][1], list_of_gedung[i][2][2],
+                                    list_of_gedung[i][3][0], list_of_gedung[i][3][1], list_of_gedung[i][3][2], 0.2)
+    
+    i += 1
+    vertex_data += createBuilding(list_of_gedung[i][0][0], list_of_gedung[i][0][1], list_of_gedung[i][0][2],
+                                    list_of_gedung[i][1][0], list_of_gedung[i][1][1], list_of_gedung[i][1][2],
+                                    list_of_gedung[i][2][0], list_of_gedung[i][2][1], list_of_gedung[i][2][2],
+                                    list_of_gedung[i][3][0], list_of_gedung[i][3][1], list_of_gedung[i][3][2], 0.2)
+    i += 1
+    vertex_data += createBuilding(list_of_gedung[i][0][0], list_of_gedung[i][0][1], list_of_gedung[i][0][2],
+                                    list_of_gedung[i][1][0], list_of_gedung[i][1][1], list_of_gedung[i][1][2],
+                                    list_of_gedung[i][2][0], list_of_gedung[i][2][1], list_of_gedung[i][2][2],
+                                    list_of_gedung[i][3][0], list_of_gedung[i][3][1], list_of_gedung[i][3][2], 0.2)
+    i += 1
+    vertex_data += createBuilding(list_of_gedung[i][0][0], list_of_gedung[i][0][1], list_of_gedung[i][0][2],
+                                    list_of_gedung[i][1][0], list_of_gedung[i][1][1], list_of_gedung[i][1][2],
+                                    list_of_gedung[i][2][0], list_of_gedung[i][2][1], list_of_gedung[i][2][2],
+                                    list_of_gedung[i][3][0], list_of_gedung[i][3][1], list_of_gedung[i][3][2], 0.2)
+    i += 1
+    vertex_data += createBuilding(list_of_gedung[i][0][0], list_of_gedung[i][0][1], list_of_gedung[i][0][2],
+                                    list_of_gedung[i][1][0], list_of_gedung[i][1][1], list_of_gedung[i][1][2],
+                                    list_of_gedung[i][2][0], list_of_gedung[i][2][1], list_of_gedung[i][2][2],
+                                    list_of_gedung[i][3][0], list_of_gedung[i][3][1], list_of_gedung[i][3][2], 0.2)
+    i += 1
+    vertex_data += createBuilding(list_of_gedung[i][0][0], list_of_gedung[i][0][1], list_of_gedung[i][0][2],
+                                    list_of_gedung[i][1][0], list_of_gedung[i][1][1], list_of_gedung[i][1][2],
+                                    list_of_gedung[i][2][0], list_of_gedung[i][2][1], list_of_gedung[i][2][2],
+                                    list_of_gedung[i][3][0], list_of_gedung[i][3][1], list_of_gedung[i][3][2], 0.2)
+    i += 1
+    vertex_data += createBuilding(list_of_gedung[i][0][0], list_of_gedung[i][0][1], list_of_gedung[i][0][2],
+                                    list_of_gedung[i][1][0], list_of_gedung[i][1][1], list_of_gedung[i][1][2],
+                                    list_of_gedung[i][2][0], list_of_gedung[i][2][1], list_of_gedung[i][2][2],
+                                    list_of_gedung[i][3][0], list_of_gedung[i][3][1], list_of_gedung[i][3][2], 0.2)
+    i += 1
+    vertex_data += createBuilding(list_of_gedung[i][0][0], list_of_gedung[i][0][1], list_of_gedung[i][0][2],
+                                    list_of_gedung[i][1][0], list_of_gedung[i][1][1], list_of_gedung[i][1][2],
+                                    list_of_gedung[i][2][0], list_of_gedung[i][2][1], list_of_gedung[i][2][2],
+                                    list_of_gedung[i][3][0], list_of_gedung[i][3][1], list_of_gedung[i][3][2], 0.2)
+    i += 1
+    vertex_data += createBuilding(list_of_gedung[i][0][0], list_of_gedung[i][0][1], list_of_gedung[i][0][2],
+                                    list_of_gedung[i][1][0], list_of_gedung[i][1][1], list_of_gedung[i][1][2],
+                                    list_of_gedung[i][2][0], list_of_gedung[i][2][1], list_of_gedung[i][2][2],
+                                    list_of_gedung[i][3][0], list_of_gedung[i][3][1], list_of_gedung[i][3][2], 0.2)
+    i += 1
+    vertex_data += createBuilding(list_of_gedung[i][0][0], list_of_gedung[i][0][1], list_of_gedung[i][0][2],
+                                    list_of_gedung[i][1][0], list_of_gedung[i][1][1], list_of_gedung[i][1][2],
+                                    list_of_gedung[i][2][0], list_of_gedung[i][2][1], list_of_gedung[i][2][2],
+                                    list_of_gedung[i][3][0], list_of_gedung[i][3][1], list_of_gedung[i][3][2], 0.2)
+    i += 1
+    vertex_data += createBuilding(list_of_gedung[i][0][0], list_of_gedung[i][0][1], list_of_gedung[i][0][2],
+                                    list_of_gedung[i][1][0], list_of_gedung[i][1][1], list_of_gedung[i][1][2],
+                                    list_of_gedung[i][2][0], list_of_gedung[i][2][1], list_of_gedung[i][2][2],
+                                    list_of_gedung[i][3][0], list_of_gedung[i][3][1], list_of_gedung[i][3][2], 0.2)
+    i += 1
+    vertex_data += createBuilding(list_of_gedung[i][0][0], list_of_gedung[i][0][1], list_of_gedung[i][0][2],
+                                    list_of_gedung[i][1][0], list_of_gedung[i][1][1], list_of_gedung[i][1][2],
+                                    list_of_gedung[i][2][0], list_of_gedung[i][2][1], list_of_gedung[i][2][2],
+                                    list_of_gedung[i][3][0], list_of_gedung[i][3][1], list_of_gedung[i][3][2], 0.2)
+    i += 1
+    vertex_data += createBuilding(list_of_gedung[i][0][0], list_of_gedung[i][0][1], list_of_gedung[i][0][2],
+                                    list_of_gedung[i][1][0], list_of_gedung[i][1][1], list_of_gedung[i][1][2],
+                                    list_of_gedung[i][2][0], list_of_gedung[i][2][1], list_of_gedung[i][2][2],
+                                    list_of_gedung[i][3][0], list_of_gedung[i][3][1], list_of_gedung[i][3][2], 0.2)
+    i += 1
+    vertex_data += createBuilding(list_of_gedung[i][0][0], list_of_gedung[i][0][1], list_of_gedung[i][0][2],
+                                    list_of_gedung[i][1][0], list_of_gedung[i][1][1], list_of_gedung[i][1][2],
+                                    list_of_gedung[i][2][0], list_of_gedung[i][2][1], list_of_gedung[i][2][2],
+                                    list_of_gedung[i][3][0], list_of_gedung[i][3][1], list_of_gedung[i][3][2], 0.2)
+    i += 1
+    vertex_data += createBuilding(list_of_gedung[i][0][0], list_of_gedung[i][0][1], list_of_gedung[i][0][2],
+                                    list_of_gedung[i][1][0], list_of_gedung[i][1][1], list_of_gedung[i][1][2],
+                                    list_of_gedung[i][2][0], list_of_gedung[i][2][1], list_of_gedung[i][2][2],
+                                    list_of_gedung[i][3][0], list_of_gedung[i][3][1], list_of_gedung[i][3][2], 0.2)
+    i += 1
+    vertex_data += createBuilding(list_of_gedung[i][0][0], list_of_gedung[i][0][1], list_of_gedung[i][0][2],
+                                    list_of_gedung[i][1][0], list_of_gedung[i][1][1], list_of_gedung[i][1][2],
+                                    list_of_gedung[i][2][0], list_of_gedung[i][2][1], list_of_gedung[i][2][2],
+                                    list_of_gedung[i][3][0], list_of_gedung[i][3][1], list_of_gedung[i][3][2], 0.2)
+   
     return vertex_data
